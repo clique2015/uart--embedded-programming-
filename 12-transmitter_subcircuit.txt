@@ -1,0 +1,60 @@
+this is the main  transmitter vhdl code.
+the first block is the vhdl standard libraries. 
+next the transmitter port including: 
+dout, rts, baud clock, reset, stop, tx bit, sent ok.
+
+next the signals we will discuss that later.
+
+the parity generator component and mapping.
+
+this subcircuit takes our input data and generates a parity bit which will be used for error detection at the receiver.
+
+if this parity bit is not thesame with the parity bit generated at the receiver.
+the receiver error signal comes on.
+
+next are the data register in and data register one.
+they are used to store received data.
+tx bit is the transmitted bit .
+nobits signal is used to signal the end of data reception and transmitter should move to stage 3.
+this signal comes on when the number of received bit equals 18.
+next is the transmitter registers .
+
+the tx fsm register stores the current state of the transmitter .
+the sent ok, stores the Wether transmission is complete or not .
+
+data register stores the data to be transmitted.
+the tx bit count register stores the number of transmitted bit. 
+the tx busy register is used to set the transmission line high until when it is ready to transmit data .
+this signal is inverted and used with an or gate on the tx bit.
+so whenever it is high, tx bit is allowed to pass and whenever it is low , the tx bit is high or idle.
+next is the transmitter state machine .
+state 0, state 1, state 2 , and state 3.
+
+they can be represented here with multiplexers 
+state 0 is the idle state , no transmission occurs here.
+if the ready to send signal is on. 
+the transmitter resets the data register , tx bit count  register and sets the txbusy register high and moves to stage 2 .
+
+stage 2 and state 3 are identical .
+bit transmission occurs here.
+the data to be sent consists of a zero start bit , a 16 bit data to be transmitted, a parity bit ,
+and finally the stop bit or a high or one.
+the tx bit count register starts  counting at these stages using an adder.
+
+whenever the tx bit count register equals 19 in decimal and 12 in hexadecimal.
+the nobits signal is high and the tx fsm moves to stage 3 to mark the end of data transmission.
+at this stage ,
+the sent ok signal is set also to mark that transmission has ended .
+if the stop signal is on, the process ends at stage 3 else if it is zero .
+the transmitter goes back to zero and starts transmission afresh .
+finally,  the tx busy register is set low and the tx bit line goes back to high or idle state .
+
+so, these are the logics contained inside this transmitter circuit.
+
+leave your questions inthe review section.
+in the next course I will continue with another transmission protocols.
+
+check out projectfpga.com for upcoming courses.
+i will be remaking all tutorials to udemy standard.
+please support my course by leaving a kind review.
+it will get better with time.

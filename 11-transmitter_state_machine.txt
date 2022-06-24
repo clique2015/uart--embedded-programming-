@@ -1,0 +1,36 @@
+In this lesson. We will now see what is contained inside transmitter.
+
+then we will learn the vhdl code.
+
+Please hope you have basic knowledge of logism, 
+all you need to know is basucally what each component represents.
+
+from the this picture, the tx fsm and the tx bit count are both signals.
+they are not ports,
+but i have used them as input and output for demonstrative purposes.
+they do not reflect on the transmitter.
+
+the transmitter has for stages. 
+Which is controlled by the TX FSM signal. 
+a 2bit register is used to store the tx fsm signal.
+
+Which stand for transmitter finite state machine .
+when the txfsm  signal is zero . that is stage zero. the transmitter is in idle state.
+nothing happens .
+when the rts signal is turned on,  it moves to stage 1.
+here, the transmission occurs, while the ts fsm signal alternates between stage 1 and stage 2.
+transmission occurs at stage 1 and 2.
+
+here, the tx bit count signal counts the number of sent data. 
+if it is equal to the number of total data to be sent . in our case 19bits.
+the comparator turns on, which detects that it has completely transmitted all data bits.
+and moves from stage 1 or stage 2 , to stage 3.
+
+At stage 3 which is the final stage, if the stop signal is on . the circuit halts else it moves to stage zero .
+
+and everything starts afresh.
+
+
+
+
+

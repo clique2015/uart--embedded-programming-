@@ -1,0 +1,35 @@
+the receiver. 
+this course will be in three parts.
+the receiver , the baud generator and the transmitter.
+
+the receiver sub circuit is made up of the main receiver and the baud generator. 
+the baud generator generates the clock signal which is used to synchronize the receiver subcircuit. 
+the receiver ports consists of the 
+stop bit which is kept high all the time .
+rx  bit which is where we connected our received bit.
+clear to send signal which turns the receiver on  , for data reception .
+baud clock which comes from the baud generator. 
+the reset .
+error signal , which signals if there are errors during data reception. 
+the din data bits which is the received bits. 
+then clr clk signal which is used for over sampling. 
+we will discuss over sampling during the baud generator class.
+
+the baud generator ports consists of the baud select which is used to select the baud rate.
+clock and reset for synchronising and resetting the circuit .
+clr clock signal used for oversampling. 
+and one output which is the baud clock.
+
+the vhdl code for the mapping between the receiver and baud generator is shown next.
+
+First is the vhdl standard libraries. 
+next is the  receiver ports .
+
+then the baud generator and main receiver components and their ports .
+
+finally their mapping.
+
+we have three signal lines.
+
+the clr clock signal line, 
+baud clock signal line and the reset signal line. next let us now dive into this receiver main circuit and see what logic gates it is made up of . I

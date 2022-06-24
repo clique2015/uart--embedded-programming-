@@ -1,0 +1,66 @@
+The transmitter.
+
+In our last tutorial we saw how the UART transmitter and receiver works, 
+Now we have a clear picture of what we would like to design.
+A UART transmitter and a receiver.
+We would now keep getting into each of the sub circuits until we get to the logic gates.
+
+Let us now break in to the transmitter circuit, to see what the designer did.
+
+ inside the transmitter is  two other subcircuits. the main transmitter and baud generator.
+
+the baud generator generates the clock which is used to synchronize the transmitter .
+Its inputs  consist of the clock and reset which is used to synchronise the circuit. the baud select signal use to select the baud rate.
+ then the clear clock signal is not used on the transmitter, so its set to zero.
+it would be used when we are discussing about the receiver.
+The baud generator has only one output which is the generated baud signal which is used to clock the transmitter.
+
+the input to the transmitter are the dout signal which is the data to be sent . 
+the rts or ready to send signal which signifies that transmitter is ready for transmission and most be on for transmission to take place .
+the stop signal when set to zero enables continous transmission after one transfer. but when set to 1, only one transfer can be done .
+
+the output are the done signal which come one after transmission is complete,
+and the tx bit signal which is the actual transmitted bit and is sent serially , one after another.
+
+let me now show you how the designer generated the vhdl code for the transmitter.
+
+this is my quartus editor. I will start my coding the default structure of every vhdl code .
+it consists of the entity called transmitter and the architecture called structure.
+
+next I will write out all the ports of the transmitter .
+clock, reset, rts, baud select, d out, done , tx bit.
+
+next I would introduce these two components. with their ports .
+
+finally I would map their ports together.
+
+I created two signals baud signal which connects the baud clock from the baud generator to the baud clock on the transmitter.
+ and also the reset signal that connects the two resets together.
+Next, the complete vhdl code and simulation.
+
+this is the full code.
+
+Now, for the simulation.
+I will start by getting the free running clock , then I enable the clock to run.
+ and then the  baud select signal set to zero which is the fastest baudrate .
+
+the baud clock is now clocking the transmitter.
+
+
+Now when i reset the circuit and set the rts signal on. the tx bit comes on steadily.
+This a major characteristics of the U A R T .
+which is that the transmission line is steadliy high or idle.
+
+
+and when i put an arbitrary value on the d out line.
+watch how the tx bit signal comes on and off transmitting the signal.
+and when it is done, the done signal turn on.
+if the stop bit was set to zero. 
+the transmission will continously repeat it self . 
+but it is set to one. so the transmission halts after one transfer.
+you can also reset to start afresh.
+this process is repeated again with a different higher value and slower baud rate.
+notice that the tx bit does blink as fast as when we used the faster baud rate.
+
+ In our next lesson, We will dive into this transmitter and see the circuitary  inside, we will also write the vhdl code .
+

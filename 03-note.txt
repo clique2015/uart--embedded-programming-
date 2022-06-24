@@ -1,0 +1,8 @@
+AT this point, before we continue I will make some assumptions.
+
+1. You have downloaded logism
+2. You have downloaded and installed a vhdl/verilog code editor
+3. You have downloaded the courses zipped materials including:
+   The vhdl codes.
+   The course sub titles, incase my voice is not clear or audible.
+   The logism circuit diagram.

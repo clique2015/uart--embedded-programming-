@@ -1,0 +1,86 @@
+The baud generator. 
+
+the standard baud rates we would be using for this design includes:
+115200, 57600, 38400, 19200, 9600, 4800, 2400, 1200.
+and our system clock is assumed to be 14.7456 MHz.
+
+example:
+to get a baudrate of 115200, 
+14.7456MHz / 115200 = 128.
+so we need to generate a pulse every 128 counts.
+
+Oversampling 
+
+this is used only at the receiver.  to minimise error in data reception.
+
+This is a sample data bit to be received by the receiver
+
+ at the receiver, data reception starts at the edge of the start bit or 0 , which is used to wake the receiver.
+sampling data at the edge can introduce error because any of the adjacent bits can be sampled due to slight timing error.
+so it is best to sample at the middle of the data .
+
+so, we need a way to sample the start bit at the center rather than at the starting edge .
+so we use over sampling. 
+in oversampling, we can sample a single bit , 16 times. 
+so that when we receive the edge of the start bit we can adjust our count to 8 instead of 0.
+ and by the time it gets to 16. we are half way or at the middle of the start bit.
+and for everyother 16 count. the data will always be at the middle of the received bit.
+
+so, to get 115200 baud rate. instead of counting 128 as we calculated earlier.
+we divide by 16.
+that is, 
+128 = 8 x 16.
+the 16 will be used for oversampling. 
+8 in binary is 0 to 7.
+so in the code you would see 7 instead of 8.
+Next the vhdl code.
+
+this is the vhdl code for the baud generator. 
+the first part is the vhdl standard libraries.
+next the baud generator port, including 
+the:  baud select, reset , clock, clr clk  and baud clock.
+
+next the signals which we would discuss.
+
+next the baud select multiplexer. 
+here, different values of the baud select represents different baud rates and they give different values at the clk counter signal .
+this is the seven we calculated for 115200 baud rate earlier.
+the accumulator register is used to store the first part of the counting .
+example  for 115200 baud rate is seven .
+Once the accumulator counts to seven it resets and generates a signal which would be used for oversampling. 
+this is stored in clock 16 register.
+
+
+this is represented in logism. 
+
+next the oversampling stage.
+here a 4 bit counter  called clock_16_counter register, counts upto 16 from 0 to "1 1 1 1 " in binary and resets. 
+and this is when our baud clock signal is generated.
+the clock 16 register signal is used to increment  this accumulator. 
+for example for 115200 . 
+
+The first accumulator will count from 0 to 7 that is 8.
+ and the second accumulator will always count 16 for all the bauds, due to oversampling.
+only the first accumulator will vary depending on what baud rate selected.
+ 
+that will be 
+8 x 16 = 128.
+
+to verify,
+14.7456MHz / 115200 = 128.
+
+the clr clk signal comes from the receiver , and it sets the oversampling counter to 8. whenever it receives the edge of the start bit.
+it compares its previous value and makes sure it was previously off.using this and gate
+
+
+this clr clk signal is not used in the transmitter and is set to zero.
+it is only used with the receiver. 
+
+this is the logic behind the baud generator. 
+in our next tutorial we will discuss the transmitter.
+
+
+
+
+
+

@@ -1,0 +1,26 @@
+Now for the simulation . I will put the free running clock. 
+
+the ready to send signal on the transmitter and the clear to send signal on the receiver must both  be on for transmission and reception.  they are both controlled by the ready signal here. 
+
+Now the clock is on,  on an actual fpga both transmitter and receiver will decide before transmission what baud rate to use. but here , the baud select signal controls both transmitter and receiver ,
+ so everything is still OK. 
+ Watch how  the data in the d out  signal of the transmitter is transmitted to The D in signal at the receiver.
+
+ and the tx bit coming on and off sending the bits to the rx bit serially . 
+ thesame process is repeated for different baud rates by choosing different values for the baud select signal. the only difference is they have different speed. 
+Now the ready bit is on, so the CTS and RTS signals are both on. 
+
+This particular baudrate is slower than the one initially selected, so the bits takes longer to transmit.
+the done signal comes on whenever the transmission is complete and the error signal is off. meaning no error was received in transmission. 
+
+In further lessons, the designer would keep breaking down the transmitter and receiver circuit till we get to the logic gates. 
+the designer would show you, how he developed the complete vhdl for both the uart receiver and transmitter.
+At the end of this course, you would be able to develop a uart transmitter and receiver in vhdl.
+and also understand how it works.
+A transceiver can be made by simply connecting the transmitter and receiver together as already shown above, all on one fpga,
+but the tx bit and rx bit would not be connected together, rather they would be seperate output and input respectively, which would be connected
+to a different transceiver. with the data to be sent on the d out input of the transmitter, and the received data on the d in output of the receiver.
+Major characteristics of uart is that it uses a single line for transmission(simplex), or dual line for transmission and reception.
+while i2c uses the sda and scl line, and spi uses upto four lines for miso, mosi, chip_select and clock.
+
+In our next lesson we discuss about the receiver.

@@ -1,0 +1,48 @@
+Now let us begin. This is a picture of the uart receiver and transmitter the designer will be designing in this course. 
+
+the  transmitter is on the left while the  receiver is on the right. 
+
+uart can be designed to be simplex or duplex. 
+
+simplex is when the transmitter transmits in only one direction while a duplex is when  the transmitter transmits in both direction. 
+
+A duplex uart is also called a transceiver while a simplex uart can either be a transmitter or a receiver.
+
+The designer will design a simplex uart in this course. 
+
+But a duplex uart can be made by combining a transmitter and a receiver together, Let us discuss about the transmitter , The transmitter has five inputs, 
+the baud select, this will be used to select the particular baud rate, The clock and the reset these are used for synchronising the circuit and to reset it to default. 
+
+
+The rts  which stands for ready to send. this signal turns on the transmission process, And finally the actual data to be transmitted, the Design is a 16-bit uart transmitter. 
+ 
+The transmitter has two output signals .
+
+done signal which comes on whenever transmission is complete. 
+ and txbit signal which is the actual signal being sent to the receiver.
+
+The receiver.
+The receiver also has five input signals. the clock and reset  which is used for synchronising the receiver and for resetting it, 
+The baud select signal which is used to select the baud rate of the receiver. 
+
+The cts signal which stands for clear to send which is used to turn on the receiver to receive data from the transmitter. 
+Finally the rxbit signal which receives the bits from the transmitter.
+The receiver has two output signals.  
+the din signal which is the actual received bit and, the error signal which turns on if an error is detected during transmission.
+
+On an actual fpga . the transmitter and the receiver will be on the different boards. 
+They will share only a single connection going from the txbit of the transmitter to the rxbit of the receiver.
+
+Their different boards will provide a separate clock signal, reset signal, baud select signal, rts signal and cts signal independently.
+ but the design here they are commonly shared by both the receiver and transmitter. 
+
+Also, if they are part of a larger design.
+The RTS and CTS signal will be provided by  the main circuit whenever it wants to send or receive signal respectively. 
+Now the designer will simulate the circuit and you will see how the data from the dout signal from the transmitter will be sent to the din signal  of the receiver. 
+pay close attention to these two signals.
+In Our next lesson you will see how the designer  developed the vhdl code and we would also dive into the transmitter and receiver to see what is the inside. 
+
+
+We would be using a top to down approach, where we start discussion from the finished circuit down to the logic gates, so that you can have a clear picture of the design before hand.
+
+The simulation.

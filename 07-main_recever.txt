@@ -1,0 +1,69 @@
+The receiver 
+this course will be in three parts the receiver , the transmitter and baud generator. 
+the receiver data reception occurs in four stages .
+this is controlled by the receiver finite state machine called the rx fsm signal.
+at stage 0. this is the idle stage nothing occurs, 
+at this stage if the receiver receives the start bit from the transmitter or a zero. 
+it immediately goes to stage 1.
+The receiver keeps alternating between stage 1 and 2 while receiving the data until it receives a total of 18 data bits, then it moves to stage 3.
+if the stop bit is on . the receiver halts at this stage else it goes to stage 0 and starts afresh .
+The vhdl code .
+the first part is the vhdl standard libraries. 
+next is the receiver port including the 
+stop signal , rx bit, clear to send signal , baud clock, reset, clr clk signal , din and error signal.
+
+next the parity generator component which we will add.
+
+this is used for error detection. 
+the parity generator takes our received data bits and generates a parity bit from it .
+then it compares it with the parity bit received from the transmitter using a xor gate .
+if they are not thesame , then an error signal comes on. 
+
+I will show you the main circuit.
+ it is a 16 input x or gate . 
+that takes a 16 bit data and generates a x-or gate.
+
+next is the signals we will discuss them later.
+
+next 
+the din, nobits , clr clk, error signal, 
+
+the din is the final received data , 
+which comes from the data register .
+
+the nobits signal triggers the rx fsm or the receiver finite state machine to move to the last stage .
+this bit comes on whenever the number of received bit also called the rx bit count signal iis equal to 18 in decimal or 11 in hexadecimal. 
+
+the clr clk signal this signal is used for oversampling which we will discuss when we are talking about the baud generator. 
+it signals the start of data reception which is when the rx fsm is in stage 0 and the rx bit line receives a low bit or a zero .
+
+Then ,the error signal . 
+this compares the parity bit generated at the receiver and the bit one of the received data which is the parity bit that was received from the transmitter. 
+
+next the registers , rx-fsm register, rx-bit-count register, error register and data register.
+rx-fsm this register stores the receiver state .
+the rx bit cnt . this register stores the number of received bit which is used to generate the nobits signal.
+error register.  this register stores the error bit .
+finally the data register.  this register stores  the received data .
+
+then next the state machine.
+state 0, state 1, state 2, state 3.
+this is the case statement which can be represented with a multiplexer. 
+
+At state zero or idle stage .
+if the rx bit is which is usually high, receives a start bit or zero and the cts or clear to send signal is on,
+then the rx bit count register is reset so that it can start counting from zero and then the state moves to stage one.
+
+
+stage one and stage 2 does exactly thesame thing. 
+they just alternate between each other while the rx bit count keeps incrementing. 
+and the data register which is a shift register, keeps receiving the received bits and shifting it in to the data register called din.
+and whenever the rx bit count register equals the number 11 in hexadecimal or 18 in decimal, it moves to stage 3.
+if the stop bit is on everything halts here else the rx fsm moves to stage 0. and data reception starts afresh .
+also at this stage is when the error bit is calculated. 
+this and gate, enables the generated error to trigger at this stage .
+
+so, this is the logic behind this receiver subcircuit.
+
+the full code will be attached to this lecture .
+Next the baud generator
